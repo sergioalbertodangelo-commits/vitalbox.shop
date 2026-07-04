@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VĪTAL BOX — Bienestar que por fin se adapta a ti</title>
+<meta name="description" content="Suplementos + skincare funcional personalizados por IA. Únete a la lista de espera de VĪTAL BOX.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #07080F;
+    --surface: #12141C;
+    --surface-border: #23263054;
+    --sport: #00E5A0;
+    --hormonal: #C084FC;
+    --text-primary: #F5F6F8;
+    --text-secondary: #9AA0AE;
+    --text-muted: #5C6270;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Ambient dual-tone glow — signature element: the two segments (Sport / Hormonal)
+     bleeding into one shared field of light behind the hero */
+  .glow{
+    position: fixed;
+    top: -20vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140vw;
+    height: 90vh;
+    background:
+      radial-gradient(ellipse 45% 55% at 30% 30%, rgba(0,229,160,0.16), transparent 60%),
+      radial-gradient(ellipse 45% 55% at 70% 35%, rgba(192,132,252,0.14), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(10px);
+  }
+
+  .wrap{
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 96px 24px 64px;
+  }
+
+  .eyebrow{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before{
+    content: "";
+    width: 18px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--sport), var(--hormonal));
+    display: inline-block;
+  }
+
+  h1{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 0 0 24px;
+    color: var(--sport);
+  }
+
+  .sub{
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 46ch;
+    margin: 0 0 44px;
+  }
+
+  /* Bullets */
+  .bullets{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 44px;
+  }
+  @media (max-width: 560px){
+    .bullets{ grid-template-columns: 1fr; }
+  }
+  .bullet{
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 14px;
+    padding: 18px 18px;
+    font-size: 14.5px;
+    color: var(--text-primary);
+  }
+  .bullet .icon{ font-size: 20px; display:block; margin-bottom: 8px; }
+  .bullet b{ color: var(--text-primary); }
+
+  /* CTA button */
+  .cta-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--sport);
+    color: var(--bg);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 16px 28px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 0 0 0 rgba(0,229,160,0);
+  }
+  .cta-btn:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px -8px rgba(0,229,160,0.6);
+  }
+
+  .founder-note{
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* Divider */
+  .divider{
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--surface-border), transparent);
+    margin: 64px 0 44px;
+  }
+
+  /* Form section */
+  .form-title{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  .form-sub{
+    color: var(--text-secondary);
+    font-size: 14.5px;
+    margin: 0 0 28px;
+  }
+
+  label.field-label{
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin: 22px 0 10px;
+  }
+
+  input[type="email"]{
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  input[type="email"]:focus{
+    border-color: var(--sport);
+  }
+  input::placeholder{ color: var(--text-muted); }
+
+  /* Segment toggle — signature interaction: pick your profile visually,
+     the choice literally colors the rest of the form */
+  .segment-toggle{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .segment-option{
+    position: relative;
+    border: 1px solid var(--surface-border);
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 16px 14px;
+    text-align: left;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+  .segment-option .emoji{ font-size: 18px; display:block; margin-bottom: 6px; }
+  .segment-option[data-active="true"][data-key="sport"]{
+    border-color: var(--sport);
+    color: var(--text-primary);
+    background: linear-gradient(180deg, rgba(0,229,160,0.10), rgba(0,229,160,0.02));
+  }
+  .segment-option[data-active="true"][data-key="hormonal"]{
+    border-color: var(--hormonal);
+    color: var(--text-primary);
+    background: linear-gradient(180deg, rgba(192,132,252,0.10), rgba(192,132,252,0.02));
+  }
+
+  select{
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239AA0AE' stroke-width='1.5' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+  }
+  select:focus{ border-color: var(--sport); }
+
+  .submit-btn{
+    width: 100%;
+    margin-top: 30px;
+    background: var(--sport);
+    color: var(--bg);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .submit-btn:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px -8px rgba(0,229,160,0.6);
+  }
+
+  .privacy-note{
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-align: center;
+  }
+
+  /* Confirmation state */
+  #confirmation{
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    border: 1px solid var(--surface-border);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+  #confirmation h3{
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--sport);
+    margin: 0 0 10px;
+  }
+  #confirmation p{
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 14.5px;
+  }
+
+  footer{
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-top: 1px solid var(--surface-border);
+  }
+  footer .brand{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  footer a{
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13.5px;
+    margin-left: 18px;
+  }
+  footer a:hover{ color: var(--text-primary); }
+
+  :focus-visible{
+    outline: 2px solid var(--sport);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<div class="wrap">
+
+  <div class="eyebrow">VĪTAL BOX</div>
+
+  <h1>Bienestar que por fin se adapta a ti</h1>
+
+  <p class="sub">Responde 8 preguntas. Recibe cada mes tu caja personalizada de suplementos + skincare funcional, elegida por IA para tu cuerpo, tu objetivo y tu momento vital.</p>
+
+  <div class="bullets">
+    <div class="bullet"><span class="icon">🎯</span><b>100% personalizada</b> — nada de cajas genéricas, tu perfil decide tu contenido</div>
+    <div class="bullet"><span class="icon">🔬</span><b>Calidad farmacéutica</b> — marca blanca fabricada en España/Portugal</div>
+    <div class="bullet"><span class="icon">📦</span><b>Sin permanencia</b> — cancela cuando quieras</div>
+    <div class="bullet"><span class="icon">💶</span><b>Precio fundador €39/mes</b> — después €55/mes, solo primeros 100</div>
+  </div>
+
+  <a href="#waitlist" class="cta-btn">Únete a la lista de espera →</a>
+  <p class="founder-note">Sin compromiso. Solo tu email para reservar tu plaza.</p>
+
+  <div class="divider"></div>
+
+  <div id="waitlist">
+    <h2 class="form-title">Reserva tu plaza</h2>
+    <p class="form-sub">Los primeros 100 inscritos se llevan el precio fundador de por vida.</p>
+
+    <form id="waitlist-form" action="https://formspree.io/f/xaqgvwzv" method="POST">
+
+      <label class="field-label" for="email">Tu email</label>
+      <input type="email" id="email" name="email" placeholder="tunombre@email.com" required>
+
+      <label class="field-label">¿Qué buscas?</label>
+      <input type="hidden" name="perfil" id="perfil-input" value="Rendimiento Físico">
+      <div class="segment-toggle">
+        <button type="button" class="segment-option" data-key="sport" data-active="true" onclick="selectSegment('sport')">
+          <span class="emoji">💪</span>Rendimiento físico
+        </button>
+        <button type="button" class="segment-option" data-key="hormonal" data-active="false" onclick="selectSegment('hormonal')">
+          <span class="emoji">🌙</span>Equilibrio hormonal
+        </button>
+      </div>
+
+      <label class="field-label" for="objetivo">¿Cuál es tu objetivo principal?</label>
+      <select id="objetivo" name="objetivo" required>
+        <option value="" disabled selected>Elige una opción</option>
+        <option value="Energía">Energía</option>
+        <option value="Sueño">Sueño</option>
+        <option value="Recuperación">Recuperación</option>
+        <option value="Piel">Piel</option>
+        <option value="Digestión">Digestión</option>
+        <option value="Otro">Otro</option>
+      </select>
+
+      <button type="submit" class="submit-btn">Únete a la lista de espera</button>
+      <p class="privacy-note">Tus datos solo se usan para avisarte del lanzamiento. Cero spam.</p>
+    </form>
+
+    <div id="confirmation">
+      <h3>Ya estás dentro 🎉</h3>
+      <p>Revisa tu email — te hemos mandado la confirmación. Nos vemos muy pronto.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="brand">VĪTAL BOX</div>
+  <div>
+    <a href="https://instagram.com/vitalbox.es" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://tiktok.com/@vitalbox.es" target="_blank" rel="noopener">TikTok</a>
+  </div>
+</footer>
+
+<script>
+  function selectSegment(key){
+    document.querySelectorAll('.segment-option').forEach(function(el){
+      el.setAttribute('data-active', el.getAttribute('data-key') === key ? 'true' : 'false');
+    });
+    document.getElementById('perfil-input').value =
+      key === 'sport' ? 'Rendimiento Físico' : 'Equilibrio Hormonal';
+  }
+
+  var form = document.getElementById('waitlist-form');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = new FormData(form);
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(response){
+      if(response.ok){
+        form.style.display = 'none';
+        document.getElementById('confirmation').style.display = 'block';
+      } else {
+        alert('Hubo un problema al enviar el formulario. Inténtalo de nuevo en unos segundos.');
+      }
+    }).catch(function(){
+      alert('Hubo un problema al enviar el formulario. Revisa tu conexión e inténtalo de nuevo.');
+    });
+  });
+</script>
+
+</body>
+</html>
